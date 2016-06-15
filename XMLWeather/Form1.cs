@@ -61,7 +61,7 @@ namespace XMLWeather
 
                 if (child.Name == "temperature")
                 {
-                    currentTempOut.Text = child.Attributes["value"].Value;
+                    currentTempOut.Text = child.Attributes["value"].Value + " C°";
                 }
 
                 if (child.Name == "wind")
@@ -82,6 +82,10 @@ namespace XMLWeather
                     if (precLabel.Text == "no")
                     {
                         this.BackgroundImage = Properties.Resources.sunnyBackround;
+                    }
+                    else
+                    {
+                        this.BackgroundImage = Properties.Resources.Rain3;
                     }
                 }
                 
@@ -121,6 +125,9 @@ namespace XMLWeather
                                         windDescOut2.Text = greatGrandChild.Attributes["name"].Value;
                                         
                                         break;
+                                    case 3:
+                                        windDescOut3.Text = greatGrandChild.Attributes["name"].Value;
+                                        break;
                                     default:
                                         break;
                                 }
@@ -130,14 +137,19 @@ namespace XMLWeather
                                 switch (day)
                                 {
                                     case 1:
-                                        minOutput.Text = greatGrandChild.Attributes["min"].Value;
-                                        maxOutput.Text = greatGrandChild.Attributes["max"].Value; 
-                                                                
+                                        minOutput.Text = greatGrandChild.Attributes["min"].Value + " C°";
+                                        maxOutput.Text = greatGrandChild.Attributes["max"].Value + " C°";
+
                                         break;
                                     case 2:
-                                        tommorowTemp.Text = greatGrandChild.Attributes["day"].Value;
-                                        min2Output.Text = greatGrandChild.Attributes["min"].Value;
-                                        max2Output.Text = greatGrandChild.Attributes["max"].Value;
+                                        tommorowTemp.Text = greatGrandChild.Attributes["day"].Value + " C°";
+                                        min2Output.Text = greatGrandChild.Attributes["min"].Value + " C°";
+                                        max2Output.Text = greatGrandChild.Attributes["max"].Value + " C°";
+                                        break;
+                                    case 3:
+                                        nextDayTemp.Text = greatGrandChild.Attributes["day"].Value + " C°";
+                                        min3Output.Text = greatGrandChild.Attributes["min"].Value + " C°";
+                                        max3Output.Text = greatGrandChild.Attributes["max"].Value + " C°";
                                         break;
                                     default:
                                         break;
@@ -154,6 +166,9 @@ namespace XMLWeather
                                     case 2:
                                         day2Clouds.Text = greatGrandChild.Attributes["value"].Value;
                                         day++;
+                                        break;
+                                    case 3:
+                                        day3Clouds.Text = greatGrandChild.Attributes["value"].Value;
                                         break;
                                     default:
                                         break;
@@ -180,11 +195,16 @@ namespace XMLWeather
         {
             if (comboBox1.Text == "Today")
             {
+                nextDayTemp.Hide();
                 tommorowTemp.Hide();
                 windDescOut2.Hide();
+                windDescOut3.Hide();
                 min2Output.Hide();
                 max2Output.Hide();
+                min3Output.Hide();
+                max3Output.Hide();
                 day2Clouds.Hide();
+                day3Clouds.Hide();
                 maxOutput.Show();
                 minOutput.Show();
                 day1Clouds.Show();
@@ -195,15 +215,39 @@ namespace XMLWeather
             if (comboBox1.Text == "Tommorow")
             {
                 tommorowTemp.Show();
+                nextDayTemp.Hide();
                 min2Output.Show();
                 max2Output.Show();
+                min3Output.Hide();
+                max3Output.Hide();
+                day3Clouds.Hide();
                 day2Clouds.Show();
+                windDescOut3.Hide();
                 day1Clouds.Hide();
                 currentTempOut.Hide();
                 windDescOut.Hide();
                 minOutput.Hide();
                 maxOutput.Hide();
                 windDescOut2.Show();
+            }
+            if (comboBox1.Text == "Next Day")
+            {
+                tommorowTemp.Hide();
+                minOutput.Hide();
+                min2Output.Hide();
+                maxOutput.Hide();
+                max2Output.Hide();
+                currentTempOut.Hide();
+                windDescOut.Hide();
+                windDescOut2.Hide();
+                day1Clouds.Hide();
+                day2Clouds.Hide();
+                min3Output.Show();
+                max3Output.Show();
+                windDescOut3.Show();
+                nextDayTemp.Show();
+                day3Clouds.Show();
+
             }
         }
     }
